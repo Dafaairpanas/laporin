@@ -8,5 +8,8 @@
     <color name="hintColor">#6E6E73</color>
     <color name="outlineColor">#3F3F44</color>
     <color name="buttonColor">#313851</color>
+    <color name="highlightButtonColor">#3E4767</color>
+    <color name="darkGrey">#C3CBD3</color>
+
 
 </resources>
