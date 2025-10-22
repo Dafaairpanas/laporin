@@ -2,6 +2,7 @@ package com.smktunas.laporin
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
@@ -63,5 +64,10 @@ class LoginActivity : AppCompatActivity() {
                 }
             })
         }
+        val buatAkun = findViewById<TextView>(R.id.tvLinkRegister)
+        buatAkun.setOnClickListener {
+            startActivity(Intent(this, DaftarActivity::class.java))
+        }
+
     }
 }

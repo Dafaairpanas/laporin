@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="backgroundColor">#FAF8F3</color>
+    <color name="white">#FAFAFA</color>
+    <color name="backgroundColor">#F6F3ED</color>
     <color name="cardBgColor">#D2DCEB</color>
     <color name="textPrimary">#1C1C1E</color>
     <color name="hintColor">#6E6E73</color>
@@ -10,6 +10,9 @@
     <color name="buttonColor">#313851</color>
     <color name="highlightButtonColor">#3E4767</color>
     <color name="darkGrey">#C3CBD3</color>
+    <color name="editIcon">#D97706</color>
+    <color name="deleteIcon">#DC2626</color>
+    <color name="none">#00000000</color>
 
 
 </resources>

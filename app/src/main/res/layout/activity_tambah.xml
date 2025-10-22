@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor">
+
+    <!-- Card Container -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:backgroundTint="@color/white"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Selamat Datang"
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/textPrimary"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Judul -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/CustomTextInputLayout"
+                app:boxStrokeColor="@color/black"
+                android:hint="Judul"
+                app:boxBackgroundColor="@color/none">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    app:boxStrokeColor="@color/black"
+                    android:textColor="@color/buttonColor" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Keluhan -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Keluhan"
+                app:boxStrokeColor="@color/black"
+                app:boxBackgroundColor="@color/none"
+                style="@style/CustomTextInputLayout"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:gravity="top|start"
+                    android:inputType="textMultiLine"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:textColor="@color/textPrimary" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Kategori (Dropdown Material) -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputKategori"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                style="@style/CustomTextInputLayout"
+                android:hint="Kategori"
+                app:boxStrokeColor="@color/outlineColor"
+                app:boxBackgroundColor="@color/none"
+                app:endIconMode="dropdown_menu">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoKategori"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:textColor="@color/textPrimary"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:padding="12dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Upload Gambar -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/bg_dashed_border">
+
+                <ImageView
+                    android:layout_width="39dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_image"
+                    app:tint="@color/textPrimary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Upload gambar"
+                    android:fontFamily="@font/poppins"
+                    android:textColor="@color/buttonColor"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+
+
+
+            <!-- Login Button -->
+
+            <!-- Daftar Text -->
+            <com.google.android.material.button.MaterialButton
+                style="@style/MyRoundedButton"
+                android:id="@+id/btnKirim"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/rounded_button"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Kirim"
+                android:textColor="@android:color/white"
+                app:cornerRadius="12dp" />
+
+
+
+
+
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
