@@ -2,5 +2,8 @@
     <string name="app_name">Laporin</string>
     <string name="daftar_underline"><u>Daftar</u></string>
     <string name="login_underline"><u>Login</u></string>
+    <string name="app_nama">Laporin</string>
+    <string name="app_logo">App Logo</string>
+
 
 </resources>
