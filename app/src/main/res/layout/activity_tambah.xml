@@ -1,10 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundColor">
+
+    <!-- Judul -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Buat Pengaduan Baru"
+        android:textColor="@color/textPrimary"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- Card Container -->
     <androidx.cardview.widget.CardView
@@ -15,11 +31,12 @@
         android:backgroundTint="@color/white"
         app:cardCornerRadius="16dp"
         app:cardElevation="8dp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toTopOf="@id/customBackButton">
 
+        <!-- Isi form -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,31 +44,20 @@
             android:padding="24dp"
             android:gravity="center_horizontal">
 
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Buat Pengaduan Baru"
-                android:fontFamily="@font/poppins_semibold"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/textPrimary"
-                android:layout_marginBottom="16dp" />
-
             <!-- Judul -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/CustomTextInputLayout"
-                app:boxStrokeColor="@color/black"
                 android:hint="Judul"
-                app:boxBackgroundColor="@color/none">
+                app:boxBackgroundColor="@color/none"
+                app:boxStrokeColor="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etJudul"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_semibold"
-                    app:boxStrokeColor="@color/black"
                     android:textColor="@color/buttonColor" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -61,12 +67,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="Keluhan"
-                app:boxStrokeColor="@color/black"
-                app:boxBackgroundColor="@color/none"
                 style="@style/CustomTextInputLayout"
-                >
+                app:boxBackgroundColor="@color/none"
+                app:boxStrokeColor="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etKeluhan"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
                     android:gravity="top|start"
@@ -75,7 +81,7 @@
                     android:textColor="@color/textPrimary" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Kategori (Dropdown Material) -->
+            <!-- Kategori -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/inputKategori"
                 android:layout_width="match_parent"
@@ -99,6 +105,7 @@
 
             <!-- Upload Gambar -->
             <LinearLayout
+                android:id="@+id/layoutUpload"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:layout_marginTop="16dp"
@@ -107,9 +114,10 @@
                 android:background="@drawable/bg_dashed_border">
 
                 <ImageView
+                    android:id="@+id/ic_image"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:src="@drawable/ic_image"
+                    android:src="@drawable/ic_image "
                     app:tint="@color/textPrimary" />
 
                 <TextView
@@ -121,14 +129,10 @@
                     android:layout_marginTop="8dp" />
             </LinearLayout>
 
-
-
-            <!-- Login Button -->
-
-            <!-- Daftar Text -->
+            <!-- Tombol Kirim -->
             <com.google.android.material.button.MaterialButton
-                style="@style/MyRoundedButton"
                 android:id="@+id/btnKirim"
+                style="@style/MyRoundedButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -137,13 +141,17 @@
                 android:text="Kirim"
                 android:textColor="@android:color/white"
                 app:cornerRadius="12dp" />
-
-
-
-
-
-
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
+    <!-- Tombol Back -->
+    <com.smktunas.laporin.CustomBackButton
+        android:id="@+id/customBackButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
