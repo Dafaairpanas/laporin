@@ -23,11 +23,13 @@ class PengaduanActivity : AppCompatActivity() {
             override fun onResponse(call: Call<List<Pengaduan>>, response: Response<List<Pengaduan>>) {
                 if (response.isSuccessful) {
                     recyclerView.adapter = PengaduanAdapter(response.body() ?: emptyList())
+                } else {
+                    Toast.makeText(this@PengaduanActivity, "Gagal memuat data", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<List<Pengaduan>>, t: Throwable) {
-                Toast.makeText(this@PengaduanActivity, "Gagal memuat data", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@PengaduanActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }
