@@ -11,7 +11,10 @@
     android:paddingVertical="8dp"
     android:layout_margin="16dp"
     style="@style/MyRoundedButton"
-    android:clipToOutline="true">
+    android:clipToOutline="true"
+    android:clickable="true"
+    android:focusable="true"
+    android:elevation="10dp">
 
     <!-- Tombol Pengaduan (Aktif) -->
     <LinearLayout

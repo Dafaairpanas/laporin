@@ -15,10 +15,13 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".DaftarActivity" />
         <activity android:name=".ButtonActivity" />
+        <activity android:name=".PengaduanActivity" />
+        <activity android:name=".ui.BuatPengaduanActivity" />
+
 <!--        <activity android:name=".DetailKeluhan" />-->
 
         <activity
-            android:name=".SplashActivity"
+            android:name=".ProfilActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
