@@ -2,6 +2,7 @@ package com.smktunas.laporin
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -41,9 +42,14 @@ class LoginActivity : AppCompatActivity() {
                             val token = response.body()!!.token
                             val pref = getSharedPreferences("user_session", MODE_PRIVATE)
                             pref.edit().putString("token", token).apply()
+                            Log.d("TOKEN", "Token disimpan: $token")
+
 
                             Toast.makeText(this@LoginActivity, "Login sukses", Toast.LENGTH_SHORT).show()
-                            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+
+                            // Arahkan ke MainActivity
+                            val intent = Intent(this@LoginActivity, LaporanActivity::class.java)
+                            startActivity(intent)
                             finish()
                         } else {
                             Toast.makeText(this@LoginActivity, "Login gagal", Toast.LENGTH_SHORT).show()
