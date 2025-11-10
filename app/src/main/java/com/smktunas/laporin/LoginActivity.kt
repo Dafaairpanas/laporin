@@ -27,8 +27,8 @@ class LoginActivity : AppCompatActivity() {
         btnLogin = findViewById(R.id.btnLogin)
 
         btnLogin.setOnClickListener {
-            val email = etEmail.text.toString()
-            val password = etPassword.text.toString()
+            val email = etEmail.text.toString().trim()
+            val password = etPassword.text.toString().trim()
 
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Email dan password wajib diisi", Toast.LENGTH_SHORT).show()
@@ -41,13 +41,13 @@ class LoginActivity : AppCompatActivity() {
                         if (response.isSuccessful && response.body()?.token != null) {
                             val token = response.body()!!.token
                             val pref = getSharedPreferences("user_session", MODE_PRIVATE)
-                            pref.edit().putString("token", token).apply()
+                            // ✅ commit() agar token langsung tersimpan sebelum berpindah halaman
+                            pref.edit().putString("token", token).commit()
                             Log.d("TOKEN", "Token disimpan: $token")
-
 
                             Toast.makeText(this@LoginActivity, "Login sukses", Toast.LENGTH_SHORT).show()
 
-                            // Arahkan ke MainActivity
+                            // ✅ arahkan ke halaman laporan
                             val intent = Intent(this@LoginActivity, LaporanActivity::class.java)
                             startActivity(intent)
                             finish()

@@ -8,21 +8,20 @@ import androidx.appcompat.app.AppCompatActivity
 class LaporanActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // ✅ panggil layout dulu agar tidak blank
+        setContentView(R.layout.activity_laporan)
+        enableEdgeToEdge()
 
+        // ✅ periksa token setelah layout tampil
         val pref = getSharedPreferences("user_session", MODE_PRIVATE)
         val token = pref.getString("token", null)
         if (token == null) {
+            // Jika belum login, arahkan ke LoginActivity
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
             return
         }
 
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_laporan)
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-//            insets
-//        }
+        // ✅ di sini nanti isi fitur laporanmu
     }
 }
