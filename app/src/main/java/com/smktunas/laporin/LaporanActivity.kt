@@ -1,71 +1,107 @@
 package com.smktunas.laporin
 
 import android.os.Bundle
-import android.util.Log
+import android.view.View
+import android.widget.ImageButton
+import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.smktunas.laporin.ui.BuatPengaduanActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class LaporanActivity : AppCompatActivity() {
-
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: PengaduanAdapter
+    private lateinit var emptyStateLayout: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_laporan)
 
-        // Ambil token
-        val pref = getSharedPreferences("user_session", MODE_PRIVATE)
-        val token = pref.getString("token", null)
+        fun setupBottomNav() {
+            // 🔹 Ambil layout yang di-include
 
-        if (token == null) {
-            Toast.makeText(this, "Token tidak ditemukan, silakan login ulang", Toast.LENGTH_SHORT).show()
-            finish()
-            return
-        }
+            val navPengaduan = findViewById<LinearLayout>(R.id.nav_pengaduan)
+            val navProfil = findViewById<LinearLayout>(R.id.nav_profil)
+            val navAdd = findViewById<ImageButton>(R.id.nav_add)
 
-        recyclerView = findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Panggil API pengaduan saya
-        getMyPengaduan(token)
-    }
+            // 🔸 Tombol Pengaduan
+            navPengaduan.setOnClickListener {
+                Toast.makeText(this, "Kamu sudah di halaman Pengaduan", Toast.LENGTH_SHORT).show()
 
-    private fun getMyPengaduan(token: String) {
-        val bearerToken = "Bearer $token"
-        Log.d("LaporanActivity", "Token dikirim: $bearerToken")
+//                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+            }
 
-        ApiClient.instance.getMyPengaduan(bearerToken)
-            .enqueue(object : Callback<List<Pengaduan>> {
+            // 🔸 Tombol Tambah
+            navAdd.setOnClickListener {
+                startActivity(Intent(this, BuatPengaduanActivity::class.java))
+//                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+            }
+
+            // 🔸 Tombol Profil (aktif sekarang)
+            navProfil.setOnClickListener {
+                startActivity(Intent(this, ProfilActivity::class.java))
+
+            }
+
+            // Cek login
+            val pref = getSharedPreferences("user_session", MODE_PRIVATE)
+            val token = pref.getString("token", null)
+            if (token == null) {
+                startActivity(Intent(this, LoginActivity::class.java))
+                finish()
+                return
+            }
+
+            enableEdgeToEdge()
+            setContentView(R.layout.activity_laporan)
+
+            recyclerView = findViewById(R.id.recyclerView)
+            emptyStateLayout = findViewById(R.id.emptyStateLayout)
+
+            recyclerView.layoutManager = LinearLayoutManager(this)
+
+            // Ambil data laporan
+            ApiClient.instance.getPengaduan().enqueue(object : Callback<List<Pengaduan>> {
                 override fun onResponse(
                     call: Call<List<Pengaduan>>,
                     response: Response<List<Pengaduan>>
                 ) {
                     if (response.isSuccessful) {
-                        val pengaduanList = response.body() ?: emptyList()
-                        adapter = PengaduanAdapter(pengaduanList)
-                        recyclerView.adapter = adapter
+                        val data = response.body() ?: emptyList()
+
+                        if (data.isEmpty()) {
+                            // Tampilkan empty state
+                            emptyStateLayout.visibility = View.VISIBLE
+                            recyclerView.visibility = View.GONE
+                        } else {
+                            // Tampilkan data
+                            emptyStateLayout.visibility = View.GONE
+                            recyclerView.visibility = View.VISIBLE
+                            recyclerView.adapter = PengaduanAdapter(data)
+                        }
                     } else {
-                        val errorBody = response.errorBody()?.string()
-                        Log.e("LaporanActivity", "Error body: $errorBody")
                         Toast.makeText(
                             this@LaporanActivity,
-                            "Gagal memuat data: ${response.code()}",
+                            "Gagal memuat data",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<List<Pengaduan>>, t: Throwable) {
-                    Log.e("LaporanActivity", "API error: ${t.message}", t)
-                    Toast.makeText(this@LaporanActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@LaporanActivity,
+                        "Error: ${t.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             })
+        }
     }
-
 }
