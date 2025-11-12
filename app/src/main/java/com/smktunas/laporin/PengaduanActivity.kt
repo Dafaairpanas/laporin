@@ -1,6 +1,7 @@
 package com.smktunas.laporin
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,27 +11,61 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class PengaduanActivity : AppCompatActivity() {
+
     private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: PengaduanAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_laporan)
+        setContentView(R.layout.activity_pengaduan)
+
+        // Ambil token
+        val pref = getSharedPreferences("user_session", MODE_PRIVATE)
+        val token = pref.getString("token", null)
+
+        if (token == null) {
+            Toast.makeText(this, "Token tidak ditemukan, silakan login ulang", Toast.LENGTH_SHORT).show()
+            finish()
+            return
+        }
 
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        ApiClient.instance.getPengaduan().enqueue(object : Callback<List<Pengaduan>> {
-            override fun onResponse(call: Call<List<Pengaduan>>, response: Response<List<Pengaduan>>) {
-                if (response.isSuccessful) {
-                    recyclerView.adapter = PengaduanAdapter(response.body() ?: emptyList())
-                } else {
-                    Toast.makeText(this@PengaduanActivity, "Gagal memuat data", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onFailure(call: Call<List<Pengaduan>>, t: Throwable) {
-                Toast.makeText(this@PengaduanActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
-            }
-        })
+        // Panggil API pengaduan saya
+        getMyPengaduan(token)
     }
+
+    private fun getMyPengaduan(token: String) {
+        val bearerToken = "Bearer $token"
+        Log.d("LaporanActivity", "Token dikirim: $bearerToken")
+
+        ApiClient.instance.getMyPengaduan(bearerToken)
+            .enqueue(object : Callback<List<Pengaduan>> {
+                override fun onResponse(
+                    call: Call<List<Pengaduan>>,
+                    response: Response<List<Pengaduan>>
+                ) {
+                    if (response.isSuccessful) {
+                        val pengaduanList = response.body() ?: emptyList()
+                        adapter = PengaduanAdapter(pengaduanList)
+                        recyclerView.adapter = adapter
+                    } else {
+                        val errorBody = response.errorBody()?.string()
+                        Log.e("LaporanActivity", "Error body: $errorBody")
+                        Toast.makeText(
+                            this@PengaduanActivity,
+                            "Gagal memuat data: ${response.code()}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<List<Pengaduan>>, t: Throwable) {
+                    Log.e("LaporanActivity", "API error: ${t.message}", t)
+                    Toast.makeText(this@PengaduanActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+                }
+            })
+    }
+
 }
