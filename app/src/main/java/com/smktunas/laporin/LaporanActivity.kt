@@ -1,6 +1,5 @@
 package com.smktunas.laporin
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
@@ -21,6 +20,7 @@ class LaporanActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_laporan)
 
         fun setupBottomNav() {
             // 🔹 Ambil layout yang di-include
