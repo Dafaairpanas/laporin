@@ -4,12 +4,14 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.smktunas.laporin.R
 import com.smktunas.laporin.CustomBackButton
+import com.smktunas.laporin.PengaduanActivity
 
 class BuatPengaduanActivity : AppCompatActivity() {
 
@@ -99,6 +101,34 @@ class BuatPengaduanActivity : AppCompatActivity() {
     private fun setupBack() {
         customBackButton.setOnClickListener {
             finish()
+        }
+    }
+
+    private fun setupBottomNav() {
+        // 🔹 Ambil layout yang di-include
+        val include = findViewById<View>(R.id.include_bottom_nav)
+
+        val navPengaduan = include.findViewById<LinearLayout>(R.id.nav_pengaduan)
+        val navProfil = include.findViewById<LinearLayout>(R.id.nav_profil)
+        val navAdd = include.findViewById<ImageButton>(R.id.nav_add)
+
+        include.bringToFront()
+
+        // 🔸 Tombol Pengaduan
+        navPengaduan.setOnClickListener {
+            startActivity(Intent(this, PengaduanActivity::class.java))
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        }
+
+        // 🔸 Tombol Tambah
+        navAdd.setOnClickListener {
+            startActivity(Intent(this, BuatPengaduanActivity::class.java))
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        }
+
+        // 🔸 Tombol Profil (aktif sekarang)
+        navProfil.setOnClickListener {
+            Toast.makeText(this, "Kamu sudah di halaman Profil", Toast.LENGTH_SHORT).show()
         }
     }
 }
