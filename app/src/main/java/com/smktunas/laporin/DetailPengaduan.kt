@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.smktunas.laporin.databinding.ActivityDetailBinding
 
-class DetailKeluhan : AppCompatActivity() {
+class DetailPengaduan : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
 

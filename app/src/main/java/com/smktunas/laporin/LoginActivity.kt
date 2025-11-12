@@ -48,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
                             Toast.makeText(this@LoginActivity, "Login sukses", Toast.LENGTH_SHORT).show()
 
                             // Arahkan ke MainActivity
-                            val intent = Intent(this@LoginActivity, LaporanActivity::class.java)
+                            val intent = Intent(this@LoginActivity, PengaduanActivity::class.java)
                             startActivity(intent)
                             finish()
                         } else {

@@ -13,11 +13,10 @@
         android:theme="@style/Theme.Laporin"
         android:networkSecurityConfig="@xml/network_security_config">
 
-        <activity android:name=".LaporanActivity" />
+        <activity android:name=".PengaduanActivity" />
         <activity android:name=".ProfilActivity" />
         <activity android:name=".DaftarActivity" />
         <activity android:name=".ButtonActivity" />
-        <activity android:name=".PengaduanActivity" />
         <activity android:name=".ui.BuatPengaduanActivity" />
 
 <!--        <activity android:name=".DetailKeluhan" />-->

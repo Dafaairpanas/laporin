@@ -40,7 +40,7 @@ class PengaduanAdapter(private val data: List<Pengaduan>) :
         // Klik pada seluruh card item
         holder.itemView.setOnClickListener {
             val context = holder.itemView.context
-            val intent = Intent(context, DetailKeluhan::class.java)
+            val intent = Intent(context, DetailPengaduan::class.java)
             intent.putExtra("id_pengaduan", item.id)
             context.startActivity(intent)
         }
