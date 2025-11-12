@@ -93,16 +93,16 @@
 
     <!-- Bottom navigation -->
     <include
-        android:id="@+id/include_bottom_nav"
-        layout="@layout/activity_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:elevation="20dp"
-        android:clickable="true"
-        android:focusable="true"
+    android:id="@+id/include_bottom_nav"
+    layout="@layout/activity_button"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:elevation="20dp"
+    android:clickable="true"
+    android:focusable="true"
 
-        />
+    />
 
 
 </FrameLayout>
