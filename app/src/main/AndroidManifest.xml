@@ -17,7 +17,6 @@
         <activity android:name=".ProfilActivity" />
         <activity android:name=".DaftarActivity" />
         <activity android:name=".ButtonActivity" />
-        <activity android:name=".PengaduanActivity" />
         <activity android:name=".ui.BuatPengaduanActivity" />
 
 <!--        <activity android:name=".DetailKeluhan" />-->

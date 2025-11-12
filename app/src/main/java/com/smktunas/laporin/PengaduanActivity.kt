@@ -1,11 +1,15 @@
 package com.smktunas.laporin
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageButton
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.smktunas.laporin.ui.BuatPengaduanActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,6 +38,7 @@ class PengaduanActivity : AppCompatActivity() {
 
         // Panggil API pengaduan saya
         getMyPengaduan(token)
+        setupBottomNav()
     }
 
     private fun getMyPengaduan(token: String) {
@@ -66,6 +71,26 @@ class PengaduanActivity : AppCompatActivity() {
                     Toast.makeText(this@PengaduanActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
                 }
             })
+    }
+
+    private fun setupBottomNav() {
+        val navPengaduan = findViewById<LinearLayout>(R.id.nav_pengaduan)
+        val navProfil = findViewById<LinearLayout>(R.id.nav_profil)
+        val navAdd = findViewById<ImageButton>(R.id.nav_add)
+
+        navPengaduan.setOnClickListener {
+            Toast.makeText(this, "Kamu sudah di halaman Pengaduan", Toast.LENGTH_SHORT).show()
+        }
+
+        navAdd.setOnClickListener {
+            startActivity(Intent(this, BuatPengaduanActivity::class.java))
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        }
+
+        navProfil.setOnClickListener {
+            startActivity(Intent(this, ProfilActivity::class.java))
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        }
     }
 
 }
