@@ -66,6 +66,7 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
     implementation ("com.github.bumptech.glide:glide:4.16.0")
     implementation(libs.firebase.appdistribution.gradle)
+    implementation(libs.filament.android)
     kapt ("com.github.bumptech.glide:compiler:4.16.0")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
