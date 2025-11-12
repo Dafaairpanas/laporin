@@ -28,63 +28,67 @@
 
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- Konten kanan -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <!-- Judul -->
+                <TextView
+                    android:id="@+id/tvJudul"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Judul Laporan"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppins_semibold" />
+
+                <!-- Kategori -->
+                <TextView
+                    android:id="@+id/tvKategori"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Kategori"
+                    android:textSize="13sp"
+                    android:textColor="@color/darkGrey" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
                 android:orientation="horizontal">
 
-                <!-- Konten kanan -->
-                <LinearLayout
-                    android:layout_width="0dp"
+                <!-- Status -->
+                <TextView
+                    android:id="@+id/tvStatus"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <!-- Judul -->
-                    <TextView
-                        android:id="@+id/tvJudul"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Judul Laporan"
-                        android:maxLines="1"
-                        android:ellipsize="end"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/poppins_semibold" />
-
-                    <!-- Kategori -->
-                    <TextView
-                        android:id="@+id/tvKategori"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Kategori"
-                        android:textSize="13sp"
-                        android:textColor="@color/darkGrey" />
-
-                    <!-- Status -->
-                    <TextView
-                        android:id="@+id/tvStatus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_status"
-                        android:text="Status"
-                        android:textSize="12sp"
-                        android:textColor="@color/buttonColor"
-                        android:paddingHorizontal="8dp"
-                        android:paddingVertical="2dp"
-                        android:layout_marginTop="6dp"
-                        android:fontFamily="@font/poppins_semibold" />
-                </LinearLayout>
+                    android:background="@drawable/bg_status"
+                    android:text="Status"
+                    android:textSize="12sp"
+                    android:textColor="@color/buttonColor"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="2dp"
+                    android:fontFamily="@font/poppins_semibold" />
 
                 <!-- Tombol Edit & Hapus -->
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="end"
-                    android:orientation="horizontal"
-                    android:gravity="bottom">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:orientation="horizontal">
                     <ImageButton
                         android:id="@+id/btnEdit"
                         android:layout_width="36dp"
@@ -105,5 +109,6 @@
                         android:padding="8dp" />
                 </LinearLayout>
             </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
