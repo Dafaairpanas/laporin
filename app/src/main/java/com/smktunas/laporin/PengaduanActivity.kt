@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.smktunas.laporin.ui.BuatPengaduanActivity
+import com.smktunas.laporin.ui.CreatePengaduanActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -83,7 +83,7 @@ class PengaduanActivity : AppCompatActivity() {
         }
 
         navAdd.setOnClickListener {
-            startActivity(Intent(this, BuatPengaduanActivity::class.java))
+            startActivity(Intent(this, CreatePengaduanActivity::class.java))
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
 

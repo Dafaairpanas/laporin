@@ -8,7 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
-    private const val BASE_URL = "http://192.168.3.196:8000/api/"
+    private const val BASE_URL = "http://192.168.1.5:8000/api/"
 
     private val logging = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
@@ -17,7 +17,6 @@ object ApiClient {
     private val headerInterceptor = Interceptor { chain ->
         val newRequest = chain.request().newBuilder()
             .addHeader("Accept", "application/json")
-            .addHeader("Content-Type", "application/x-www-form-urlencoded")
             .build()
         chain.proceed(newRequest)
     }

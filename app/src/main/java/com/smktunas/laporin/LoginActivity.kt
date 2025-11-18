@@ -40,7 +40,7 @@ class LoginActivity : AppCompatActivity() {
                     override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                         if (response.isSuccessful && response.body()?.token != null) {
                             val token = response.body()!!.token
-                            val pref = getSharedPreferences("user_session", MODE_PRIVATE)
+                            val pref = getSharedPreferences("auth", MODE_PRIVATE)
                             pref.edit().putString("token", token).apply()
                             Log.d("TOKEN", "Token disimpan: $token")
 

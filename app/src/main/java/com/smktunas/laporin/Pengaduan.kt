@@ -12,13 +12,13 @@ data class Pengaduan(
     val status: String?,
     val created_at: String?,
     val updated_at: String?,
-    val kategori: Kategori?,
+    val kategori: PengaduanKategori?,
     val kelas: Kelas?
 )
 
-data class Kategori(
+data class PengaduanKategori(
     val id: Int?,
-    val nama_kategori: String?,
+    val nama_kategori: String,
     val deskripsi: String?
 )
 

@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
-import com.smktunas.laporin.ui.BuatPengaduanActivity
+import com.smktunas.laporin.ui.CreatePengaduanActivity
 
 class ProfilActivity : AppCompatActivity() {
 
@@ -58,7 +58,7 @@ class ProfilActivity : AppCompatActivity() {
 
         // 🔸 Tombol Tambah
         navAdd.setOnClickListener {
-            startActivity(Intent(this, BuatPengaduanActivity::class.java))
+            startActivity(Intent(this, CreatePengaduanActivity::class.java))
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
 
