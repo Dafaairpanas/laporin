@@ -16,6 +16,8 @@
         <activity android:name=".PengaduanActivity" />
         <activity android:name=".ProfilActivity" />
         <activity android:name=".DaftarActivity" />
+        <activity android:name=".DetailPengaduan" />
+        <activity android:name=".UpdatePengaduanActivity" />
         <activity android:name=".ButtonActivity" />
         <activity android:name=".ui.CreatePengaduanActivity" />
 

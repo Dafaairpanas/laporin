@@ -1,5 +1,6 @@
 package com.smktunas.laporin
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -18,56 +19,49 @@ class PengaduanActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: PengaduanAdapter
+    private var pengaduanList: MutableList<Pengaduan> = mutableListOf()
+
+    companion object {
+        const val DETAIL_REQUEST_CODE = 200
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pengaduan)
 
-        // Ambil token
-        val pref = getSharedPreferences("user_session", MODE_PRIVATE)
-        val token = pref.getString("token", null)
+        recyclerView = findViewById(R.id.recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+        setupBottomNav()
+
+        val token = getSharedPreferences("user_session", MODE_PRIVATE)
+            .getString("token", null)
 
         if (token == null) {
-            Toast.makeText(this, "Token tidak ditemukan, silakan login ulang", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Token tidak ditemukan", Toast.LENGTH_SHORT).show()
             finish()
             return
         }
 
-        recyclerView = findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-
-        // Panggil API pengaduan saya
         getMyPengaduan(token)
-        setupBottomNav()
     }
 
     private fun getMyPengaduan(token: String) {
         val bearerToken = "Bearer $token"
-        Log.d("LaporanActivity", "Token dikirim: $bearerToken")
-
         ApiClient.instance.getMyPengaduan(bearerToken)
             .enqueue(object : Callback<List<Pengaduan>> {
-                override fun onResponse(
-                    call: Call<List<Pengaduan>>,
-                    response: Response<List<Pengaduan>>
-                ) {
+                override fun onResponse(call: Call<List<Pengaduan>>, response: Response<List<Pengaduan>>) {
                     if (response.isSuccessful) {
-                        val pengaduanList = response.body() ?: emptyList()
+                        pengaduanList.clear()
+                        pengaduanList.addAll(response.body() ?: emptyList())
                         adapter = PengaduanAdapter(pengaduanList)
                         recyclerView.adapter = adapter
                     } else {
-                        val errorBody = response.errorBody()?.string()
-                        Log.e("LaporanActivity", "Error body: $errorBody")
-                        Toast.makeText(
-                            this@PengaduanActivity,
-                            "Gagal memuat data: ${response.code()}",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        Toast.makeText(this@PengaduanActivity, "Gagal memuat data", Toast.LENGTH_SHORT).show()
                     }
                 }
 
                 override fun onFailure(call: Call<List<Pengaduan>>, t: Throwable) {
-                    Log.e("LaporanActivity", "API error: ${t.message}", t)
                     Toast.makeText(this@PengaduanActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
                 }
             })
@@ -84,13 +78,20 @@ class PengaduanActivity : AppCompatActivity() {
 
         navAdd.setOnClickListener {
             startActivity(Intent(this, CreatePengaduanActivity::class.java))
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
 
         navProfil.setOnClickListener {
             startActivity(Intent(this, ProfilActivity::class.java))
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
     }
 
+    // Menangani refresh list setelah update/delete dari DetailPengaduan
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == DETAIL_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            val token = getSharedPreferences("user_session", MODE_PRIVATE)
+                .getString("token", null)
+            if (token != null) getMyPengaduan(token)
+        }
+    }
 }

@@ -6,9 +6,10 @@ import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 object ApiClient {
-    private const val BASE_URL = "http://192.168.1.5:8000/api/"
+    private const val BASE_URL = "http://192.168.1.6:8000/api/"
 
     private val logging = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
@@ -24,6 +25,9 @@ object ApiClient {
     private val client = OkHttpClient.Builder()
         .addInterceptor(headerInterceptor)
         .addInterceptor(logging)
+        .connectTimeout(1, TimeUnit.MINUTES)
+        .readTimeout(1, TimeUnit.MINUTES)
+        .writeTimeout(1, TimeUnit.MINUTES)
         .build()
 
     val instance: ApiService by lazy {

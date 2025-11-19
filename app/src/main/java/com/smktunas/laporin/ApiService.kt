@@ -45,6 +45,31 @@ interface ApiService {
         @Part gambar: MultipartBody.Part? = null
     ): Call<CreatePengaduanResponse>
 
+    @Multipart
+    @POST("pengaduan/{id}?_method=PUT")
+    fun updatePengaduan(
+        @Header("Authorization") token: String,
+        @Path("id") id: Int,
+        @Part("judul") judul: RequestBody?,
+        @Part("isi") isi: RequestBody?,
+        @Part("kategori_id") kategoriId: RequestBody?,
+        @Part gambar: MultipartBody.Part? = null
+    ): Call<CreatePengaduanResponse>
+
+    @GET("pengaduan/{id}")
+    fun getDetailPengaduan(
+        @Header("Authorization") token: String,
+        @Path("id") id: Int
+    ): Call<Pengaduan>
+
+
+    @DELETE("pengaduan/{id}")
+    fun deletePengaduan(
+        @Header("Authorization") token: String,
+        @Path("id") id: Int
+    ): Call<DeleteResponse>
+
+
 
 
 }
