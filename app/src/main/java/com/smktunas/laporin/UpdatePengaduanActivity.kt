@@ -5,7 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.ArrayAdapter
-import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -30,7 +29,6 @@ class UpdatePengaduanActivity : AppCompatActivity() {
         binding = ActivityUpdatePengaduanBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Ambil ID pengaduan dari intent
         pengaduanId = intent.getIntExtra("id_pengaduan", -1)
         if (pengaduanId == -1) {
             Toast.makeText(this, "ID pengaduan tidak ditemukan", Toast.LENGTH_SHORT).show()
@@ -38,23 +36,16 @@ class UpdatePengaduanActivity : AppCompatActivity() {
             return
         }
 
-        // Load detail pengaduan
         loadDetail()
-
-        // Load kategori untuk spinner
         loadKategori()
 
-        // Pilih gambar
         binding.ivPreview.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
             startActivityForResult(intent, 100)
         }
 
-        // Tombol cancel
         binding.btnCancel.setOnClickListener { finish() }
-
-        // Tombol update
         binding.btnUpdate.setOnClickListener { updatePengaduan() }
     }
 
@@ -70,7 +61,6 @@ class UpdatePengaduanActivity : AppCompatActivity() {
                         binding.etJudul.setText(data.judul)
                         binding.etIsi.setText(data.isi)
 
-                        // Set preview gambar
                         if (!data.gambar.isNullOrEmpty()) {
                             val imageUrl = "http://192.168.1.6:8000/storage/${data.gambar}"
                             Glide.with(this@UpdatePengaduanActivity)
@@ -78,6 +68,12 @@ class UpdatePengaduanActivity : AppCompatActivity() {
                                 .into(binding.ivPreview)
                         } else {
                             binding.ivPreview.setImageResource(R.drawable.sample12)
+                        }
+
+                        // set kategori jika sudah ada
+                        val kategoriName = data.kategori?.nama_kategori
+                        if (!kategoriName.isNullOrEmpty()) {
+                            binding.autoKategori.setText(kategoriName)
                         }
                     } else {
                         Toast.makeText(this@UpdatePengaduanActivity, "Gagal memuat detail", Toast.LENGTH_SHORT).show()
@@ -97,9 +93,12 @@ class UpdatePengaduanActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
                         kategoriList = response.body() ?: emptyList()
                         val names = kategoriList.map { it.nama_kategori }
-                        val adapter = ArrayAdapter(this@UpdatePengaduanActivity, android.R.layout.simple_spinner_item, names)
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                        binding.spKategori.adapter = adapter
+                        val adapter = ArrayAdapter(
+                            this@UpdatePengaduanActivity,
+                            android.R.layout.simple_dropdown_item_1line,
+                            names
+                        )
+                        binding.autoKategori.setAdapter(adapter)
                     }
                 }
 
@@ -123,16 +122,17 @@ class UpdatePengaduanActivity : AppCompatActivity() {
 
         val judulStr = binding.etJudul.text.toString().trim()
         val isiStr = binding.etIsi.text.toString().trim()
-        val kategoriPos = binding.spKategori.selectedItemPosition
-        if (kategoriPos == Spinner.INVALID_POSITION) {
+        val selectedKategoriName = binding.autoKategori.text.toString().trim()
+        val kategoriObj = kategoriList.find { it.nama_kategori == selectedKategoriName }
+
+        if (kategoriObj == null) {
             Toast.makeText(this, "Pilih kategori dulu", Toast.LENGTH_SHORT).show()
             return
         }
-        val kategoriId = kategoriList[kategoriPos].id
 
         val judulPart = RequestBody.create("text/plain".toMediaTypeOrNull(), judulStr)
         val isiPart = RequestBody.create("text/plain".toMediaTypeOrNull(), isiStr)
-        val kategoriPart = RequestBody.create("text/plain".toMediaTypeOrNull(), kategoriId.toString())
+        val kategoriPart = RequestBody.create("text/plain".toMediaTypeOrNull(), kategoriObj.id.toString())
 
         val gambarPart = selectedImageUri?.let {
             val file = File(FileUtils.getPath(this, it))

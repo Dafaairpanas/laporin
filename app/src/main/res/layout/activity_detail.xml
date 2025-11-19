@@ -12,26 +12,24 @@
         android:layout_height="0dp"
         android:fillViewport="true"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/actionButtons"
+        app:layout_constraintBottom_toTopOf="@id/customBackButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:padding="16dp">
 
             <!-- Card Container -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardContent"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:cardElevation="4dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -39,49 +37,50 @@
                     android:orientation="vertical"
                     android:padding="24dp">
 
-                    <!-- Title -->
+                    <!-- Judul Pengaduan -->
                     <TextView
                         android:id="@+id/tvTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_bold"
-                        android:text="A110 MAKAN GAJI BUTA"
-                        android:textColor="#2C3E50"
+                        android:text="Judul Pengaduan"
                         android:textSize="24sp"
+                        android:textColor="#2C3E50"
                         android:textStyle="bold"
-                        android:letterSpacing="0.02" />
+                        android:fontFamily="@font/poppins_bold" />
 
-                    <!-- Content Container -->
+                    <!-- Info Pengirim & Kategori -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:layout_marginTop="20dp">
 
+                        <!-- Gambar keluhan -->
                         <ImageView
                             android:id="@+id/ivKeluhan"
                             android:layout_width="0dp"
                             android:layout_height="150dp"
                             android:layout_weight="1"
-                            android:background="#E0E0E0"
-                            android:contentDescription="Gambar Keluhan"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/sample12" />
+                            android:background="#E0E0E0"
+                            android:contentDescription="Gambar Keluhan" />
 
+                        <!-- Informasi Pengirim & Kategori -->
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:layout_marginStart="20dp"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:layout_marginStart="16dp">
 
+                            <!-- Nama Pengirim -->
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Pengirim"
-                                android:textColor="#2C3E50"
-                                android:textSize="18sp"
+                                android:textSize="16sp"
                                 android:textStyle="bold"
+                                android:textColor="#2C3E50"
                                 android:fontFamily="@font/poppins_semibold" />
 
                             <TextView
@@ -89,105 +88,72 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
-                                android:text="Imam Batangan IPhone"
+                                android:text="Nama Pengirim"
+                                android:textSize="14sp"
                                 android:textColor="#5D6D7E"
-                                android:fontFamily="@font/poppins"
-                                android:textSize="12sp" />
+                                android:fontFamily="@font/poppins" />
 
+                            <!-- Kategori -->
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="12dp"
                                 android:text="Kategori"
-                                android:textColor="#2C3E50"
-                                android:textSize="18sp"
+                                android:textSize="16sp"
                                 android:textStyle="bold"
+                                android:textColor="#2C3E50"
                                 android:fontFamily="@font/poppins_semibold" />
 
                             <TextView
                                 android:id="@+id/tvKategori"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
+                                android:layout_marginTop="4dp"
                                 android:background="@drawable/bg_kategori"
-                                android:paddingHorizontal="20dp"
-                                android:paddingVertical="3dp"
-                                android:text="Fasilitas Sekolah"
+                                android:paddingHorizontal="16dp"
+                                android:paddingVertical="4dp"
+                                android:text="Kategori"
+                                android:textSize="12sp"
                                 android:textColor="@android:color/white"
-                                android:fontFamily="@font/poppins"
-                                android:textSize="12sp" />
+                                android:fontFamily="@font/poppins" />
                         </LinearLayout>
                     </LinearLayout>
 
+                    <!-- Isi Pengaduan -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="32dp"
+                        android:layout_marginTop="24dp"
                         android:text="Keluhan"
-                        android:textColor="#2C3E50"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold"
+                        android:textColor="#2C3E50"
                         android:fontFamily="@font/poppins_semibold" />
 
                     <TextView
                         android:id="@+id/tvKeluhan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:lineHeight="24dp"
-                        android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry..."
+                        android:layout_marginTop="8dp"
+                        android:text="Isi keluhan akan ditampilkan di sini."
+                        android:textSize="14sp"
                         android:textColor="#5D6D7E"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:textSize="12sp" />
+                        android:lineSpacingExtra="4dp"
+                        android:fontFamily="@font/poppins" />
+
                 </LinearLayout>
-
             </androidx.cardview.widget.CardView>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
     </ScrollView>
 
-    <!-- Tombol Edit & Hapus -->
-    <LinearLayout
-        android:id="@+id/actionButtons"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/customBackButton">
-
-        <Button
-            android:id="@+id/btnEdit"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Edit"
-            android:backgroundTint="#3498DB"
-            android:textColor="@android:color/white"
-            android:fontFamily="@font/poppins_semibold" />
-
-        <Button
-            android:id="@+id/btnDelete"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_weight="1"
-            android:text="Hapus"
-            android:backgroundTint="#E74C3C"
-            android:textColor="@android:color/white"
-            android:fontFamily="@font/poppins_semibold" />
-    </LinearLayout>
-
-    <!-- Tombol di bawah -->
+    <!-- Tombol Kembali -->
     <com.smktunas.laporin.CustomBackButton
         android:id="@+id/customBackButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,7 +13,8 @@ data class Pengaduan(
     val created_at: String?,
     val updated_at: String?,
     val kategori: PengaduanKategori?,
-    val kelas: Kelas?
+    val kelas: Kelas?,
+    val user: User?
 )
 
 data class PengaduanKategori(
