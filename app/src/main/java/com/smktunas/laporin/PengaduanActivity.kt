@@ -138,7 +138,9 @@ class PengaduanActivity : AppCompatActivity() {
         }
 
         navAdd.setOnClickListener {
-            startActivity(Intent(this, CreatePengaduanActivity::class.java))
+            // Start CreatePengaduanActivity untuk hasil
+            val intent = Intent(this, CreatePengaduanActivity::class.java)
+            startActivityForResult(intent, DETAIL_REQUEST_CODE)
         }
 
         navProfil.setOnClickListener {

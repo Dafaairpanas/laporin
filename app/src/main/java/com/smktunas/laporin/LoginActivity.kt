@@ -2,7 +2,6 @@ package com.smktunas.laporin
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -27,29 +26,33 @@ class LoginActivity : AppCompatActivity() {
         btnLogin = findViewById(R.id.btnLogin)
 
         btnLogin.setOnClickListener {
-            val email = etEmail.text.toString()
-            val password = etPassword.text.toString()
+            val emailInput = etEmail.text.toString()
+            val passwordInput = etPassword.text.toString()
 
-            if (email.isEmpty() || password.isEmpty()) {
+            if (emailInput.isEmpty() || passwordInput.isEmpty()) {
                 Toast.makeText(this, "Email dan password wajib diisi", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            ApiClient.instance.login(email, password)
+            ApiClient.instance.login(emailInput, passwordInput)
                 .enqueue(object : Callback<LoginResponse> {
                     override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                         if (response.isSuccessful && response.body()?.token != null) {
-                            val token = response.body()!!.token
-                            val pref = getSharedPreferences("auth", MODE_PRIVATE)
-                            pref.edit().putString("token", token).apply()
-                            Log.d("TOKEN", "Token disimpan: $token")
+                            val token = response.body()?.token
+                            val user = response.body()?.user
+                            val name = user?.name ?: "User"
+                            val email = user?.email ?: "user@example.com"
 
+                            // Simpan ke SharedPreferences
+                            val pref = getSharedPreferences("user_session", MODE_PRIVATE)
+                            pref.edit()
+                                .putString("token", token)
+                                .putString("name", name)
+                                .putString("email", email)
+                                .apply()
 
-                            Toast.makeText(this@LoginActivity, "Login sukses", Toast.LENGTH_SHORT).show()
-
-                            // Arahkan ke MainActivity
-                            val intent = Intent(this@LoginActivity, PengaduanActivity::class.java)
-                            startActivity(intent)
+                            // Lanjut ke PengaduanActivity
+                            startActivity(Intent(this@LoginActivity, PengaduanActivity::class.java))
                             finish()
                         } else {
                             Toast.makeText(this@LoginActivity, "Login gagal", Toast.LENGTH_SHORT).show()

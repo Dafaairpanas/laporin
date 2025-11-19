@@ -67,7 +67,7 @@ class UpdatePengaduanActivity : AppCompatActivity() {
                                 .load(imageUrl)
                                 .into(binding.ivPreview)
                         } else {
-                            binding.ivPreview.setImageResource(R.drawable.sample12)
+                            binding.ivPreview.setImageResource(R.drawable.ic_image)
                         }
 
                         // set kategori jika sudah ada
@@ -151,11 +151,13 @@ class UpdatePengaduanActivity : AppCompatActivity() {
             override fun onResponse(call: Call<CreatePengaduanResponse>, response: Response<CreatePengaduanResponse>) {
                 if (response.isSuccessful) {
                     Toast.makeText(this@UpdatePengaduanActivity, "Update berhasil", Toast.LENGTH_SHORT).show()
+                    setResult(Activity.RESULT_OK)
                     finish()
                 } else {
                     Toast.makeText(this@UpdatePengaduanActivity, "Gagal update", Toast.LENGTH_SHORT).show()
                 }
             }
+
 
             override fun onFailure(call: Call<CreatePengaduanResponse>, t: Throwable) {
                 Toast.makeText(this@UpdatePengaduanActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()

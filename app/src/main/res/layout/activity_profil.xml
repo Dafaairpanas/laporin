@@ -33,7 +33,7 @@
                     android:layout_height="match_parent"
                     android:background="#B8C5D6"
                     android:contentDescription="Profile Picture"
-                    android:src="@drawable/sample12" />
+                    android:src="@drawable/iconoir__profile_circle" />
             </androidx.cardview.widget.CardView>
 
             <!-- User Title -->

@@ -147,14 +147,14 @@ class CreatePengaduanActivity : AppCompatActivity() {
             override fun onResponse(call: Call<CreatePengaduanResponse>, response: Response<CreatePengaduanResponse>) {
                 if (response.isSuccessful) {
                     Toast.makeText(this@CreatePengaduanActivity, "Berhasil membuat pengaduan!", Toast.LENGTH_SHORT).show()
+                    // Kirim hasil ke PengaduanActivity
+                    setResult(Activity.RESULT_OK)
                     finish()
                 } else {
-                    // kalau mau, tampilkan errorBody untuk debugging:
-                    val err = response.errorBody()?.string()
                     Toast.makeText(this@CreatePengaduanActivity, "Gagal: ${response.code()}", Toast.LENGTH_SHORT).show()
-                    // Log.e("API_ERROR", "code=${response.code()} body=$err")
                 }
             }
+
 
             override fun onFailure(call: Call<CreatePengaduanResponse>, t: Throwable) {
                 Toast.makeText(this@CreatePengaduanActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
